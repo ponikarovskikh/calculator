@@ -6,12 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
    const display = document.querySelector('.display');
 
-   // Update display function
    function updateDisplay(value) {
       display.textContent = value;
    }
 
-   // Clear all inputs
    function clearAll() {
       currentInput = '';
       previousInput = '';
@@ -19,18 +17,15 @@ document.addEventListener('DOMContentLoaded', function () {
       updateDisplay('0');
    }
 
-   // Delete the last digit
    function deleteLast() {
       currentInput = currentInput.toString().slice(0, -1);
       updateDisplay(currentInput || '0');
    }
 
-   // Parse float wrapper to handle dot leading zeros
    function parseInput(input) {
       return parseFloat(input);
    }
 
-   // Calculate result
    function calculate() {
       let result;
       const prev = parseInput(previousInput);
@@ -43,10 +38,10 @@ document.addEventListener('DOMContentLoaded', function () {
          case '-':
             result = prev - current;
             break;
-         case '&times;':
+         case '*':
             result = prev * current;
             break;
-         case '&div;':
+         case '/':
             result = prev / current;
             break;
          case '√':
@@ -61,52 +56,54 @@ document.addEventListener('DOMContentLoaded', function () {
       currentInput = result.toString();
       operation = null;
       previousInput = '';
+      updateDisplay(currentInput);
    }
 
-   // Button click handler
    document.querySelector('.calculator').addEventListener('click', function (e) {
       if (e.target.matches('button')) {
          const btn = e.target;
+         const value = btn.textContent;
          if (btn.classList.contains('operator-btn')) {
-            if (currentInput === '' && btn.textContent === '√') {
-               operation = btn.textContent;
+            if (value === '√' && currentInput !== '') {
+               operation = value;
                calculate();
-               updateDisplay(currentInput);
-            } else if (currentInput !== '') {
-               previousInput = currentInput;
-               currentInput = '';
-               operation = btn.textContent;
+            } else if (value !== '=') {
+               if (currentInput !== '') {
+                  if (previousInput !== '') {
+                     calculate();
+                  } else {
+                     previousInput = currentInput;
+                     currentInput = '';
+                  }
+                  operation = value === '×' ? '*' : value === '÷' ? '/' : value;
+               }
+            } else {
+               calculate();
             }
-         } else if (btn.textContent === '=') {
-            calculate();
-            updateDisplay(currentInput);
-         } else if (btn.textContent === 'C') {
+         } else if (value === 'C' || value === 'CE') {
             clearAll();
-         } else if (btn.textContent === 'CE') {
-            clearAll(); // For now, it does the same as 'C'
-         } else if (btn.textContent === '&larr;') {
+         } else if (value === '←') {
             deleteLast();
-         } else if (btn.textContent === '1/x') {
+         } else if (value === '1/x') {
             if (currentInput !== '') {
                currentInput = (1 / parseInput(currentInput)).toString();
                updateDisplay(currentInput);
             }
-         } else if (btn.textContent === '+/-') {
+         } else if (value === '+/-') {
             if (currentInput !== '') {
                currentInput = (parseInput(currentInput) * -1).toString();
                updateDisplay(currentInput);
             }
-         } else if (btn.textContent === 'MC') {
+         } else if (value === 'MC') {
             memoryStored = 0;
-         } else if (btn.textContent === 'MR') {
+         } else if (value === 'MR') {
             currentInput = memoryStored.toString();
             updateDisplay(currentInput);
-         } else if (btn.textContent === 'M+') {
+         } else if (value === 'M+') {
             memoryStored += parseInput(currentInput);
-         } else if (btn.textContent === 'M-') {
+         } else if (value === 'M-') {
             memoryStored -= parseInput(currentInput);
          } else {
-            const value = btn.textContent;
             if (currentInput === '0') {
                currentInput = value;
             } else {
