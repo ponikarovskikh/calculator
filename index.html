@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Calculator</title>
+   <link rel="stylesheet" href="calculator.css">
+</head>
+
+<body>
+   <div class="calculator">
+      <div class="display">0</div>
+      <div class="row">
+         <button class="btn top-btn red-btn" id="clear">CE</button>
+         <button class="btn top-btn red-btn">C</button>
+         <button class="btn top-btn">&larr;</button>
+         <button class="btn top-btn">1/x</button>
+         <button class="btn top-btn blue-btn">GT</button>
+      </div>
+      <!-- Memory buttons -->
+      <div class="row">
+         <button class="btn mem-btn">MC</button>
+         <button class="btn mem-btn">MR</button>
+         <button class="btn mem-btn">M+</button>
+         <button class="btn mem-btn">M-</button>
+         <button class="btn mem-btn">+/-</button>
+      </div>
+      <!-- Number and operation buttons -->
+      <div class="row">
+         <button class="btn">7</button>
+         <button class="btn">8</button>
+         <button class="btn">9</button>
+         <button class="btn operator-btn">&div;</button>
+         <button class="btn operator-btn">√</button>
+      </div>
+      <div class="row">
+         <button class="btn">4</button>
+         <button class="btn">5</button>
+         <button class="btn">6</button>
+         <button class="btn operator-btn">&times;</button>
+         <button class="btn operator-btn">%</button>
+      </div>
+      <div class="row">
+         <div class="last-row">
+            <div class="prelast">
+               <button class="btn">1</button>
+               <button class="btn">2</button>
+               <button class="btn">3</button>
+               <button class="btn operator-btn">-</button>
+            </div>
+            <div class="last">
+               <button class="btn">0</button>
+               <button class="btn">00</button>
+               <button class="btn operator-btn">.</button>
+               <button class="btn operator-btn">+</button>
+            </div>
+         </div>
+         <button class="btn wide-btn">=</button>
+      </div>
+   </div>
+   <script src="calculator.js"></script>
+</body>
+
+</html>
